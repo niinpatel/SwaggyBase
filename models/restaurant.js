@@ -7,7 +7,8 @@ var restaurantSchema = new Schema({
     restaurantEmail: { type: String, required: true},
     restaurantPhoneNumber: { type: String, required: true },
     restaurantAddress: { type: String, required: true },
-    restaurantGeoLocation: { type: String, required: true }
+    restaurantGeoLocation: { type: String, required: true },
+
 
 });
 

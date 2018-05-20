@@ -5,12 +5,16 @@ var User = require('./models/user');
 var Customer = require('./models/customer');
 var Restaurant = require('./models/restaurant');
 
+
 var app = express();
-var PORT = 3131;
+var PORT = 3132;
 
 //Middleware
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
+var customerRoutes = require('./routes/customerRoutes')
+app.use("/customer", customerRoutes);
+
 app.use(bodyParser.urlencoded({extended:true}));
 
 /*----------------------USER SAMPLE --------------------------*/
@@ -76,74 +80,6 @@ app.put('/user/updateUser/:id',function(req,res){
     })
 });
 
-/*----------------------CUSTOMER ----------------------*/
-app.post('/customer/register',function(req,res){
-    var customer = new Customer();
-
-    customer.firstName = req.body.firstName;
-    customer.lastName = req.body.lastName;
-    customer.email = req.body.email;
-    customer.phoneNumber = req.body.phoneNumber;
-    customer.password = req.body.password;
-    customer.confirmPassword = req.body.confirmPassword;
-    customer.address = req.body.address;
-
-    customer.save(function(err){
-        if(err) throw err;
-        res.json({"Status" : "Customer Saved"});
-    });
-});
-
-//Home Screen for viewing all restaurants
-
-app.get('/customer/home', function(req, res) {
-    Customer.find({}, function (err, restaurants) {
-        if (err) {
-            console.log(err)
-        } else {
-            console.log(restaurants);
-            res.json(restaurants);
-            res.end();
-        }
-    })
-});
-
-//On selecting restaurant :restaurantId is used to find the required restaurant
-
-app.get('/customer/restaurantDetails:restaurantId', function(req, res) {
-    Restaurant.find({restaurantId : req.params.restaurantId}, function (err, data) {
-        if (err) {
-            console.log(err)
-        } else {
-            res.json(data);
-            res.end();
-        }
-    })
-
-});
-
-
-/*--------------------------- END OF CUSTOMER-----------------------------------*/
-
-/*---------------------- ENTERING RESTAURANTS  --------------------------------*/
-
-app.post('/customer/restaurantDataTest',function(req,res){
-    var restaurant = new restaurant();
-
-    restaurant.restaurantId = req.body.restaurantId;
-    restaurant.restaurantName = req.body.restaurantName;
-    restaurant.restaurantEmail = req.body.restaurantEmail;
-    restaurant.restaurantPhoneNumber = req.body.restaurantPhoneNumber;
-    restaurant.restaurantAddress = req.body.restaurantAddress;
-    restaurant.restaurantGeoLocation = req.body.restaurantGeoLocation;
-
-    restaurant.save(function(err){
-        if(err) throw err;
-        res.json({"Status" : "Restaurant Saved"});
-    });
-});
-
-/*---------------------END OF ENTERING RESTAURANTS------------------------------*/
 
 
 app.listen(PORT, function(err){
