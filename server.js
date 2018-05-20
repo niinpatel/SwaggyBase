@@ -1,9 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var db = require('./dbconnect');
-/*var User = require('./models/user');
-var Customer = require('./models/customer');
-var Restaurant = require('./models/restaurant');*/
 
 
 var app = express();
@@ -12,7 +9,7 @@ var PORT = 3132;
 //Middleware
 
 app.use(bodyParser.json())
-var customerRoutes = require('./routes/customerRoutes')
+var customerRoutes = require('./routes/customerRoutes');
 app.use("/customer", customerRoutes);
 
 app.use(bodyParser.urlencoded({extended:true}));

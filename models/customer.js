@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var customerSchema = new Schema({
     customerId: { type: String, required: true, index: { unique: true } },
+    customerEmail : { type: String, require: true},
     firstName: { type: String, required: true},
     lastName: { type: String, required: true },
     phoneNumber: { type: String, required: true },
